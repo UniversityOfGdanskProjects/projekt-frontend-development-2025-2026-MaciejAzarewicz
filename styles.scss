@@ -1,0 +1,113 @@
+// --- Zmienne ---
+$primary-color: #000000;
+$text-color: #FFFFFF;
+$button-color: #ff8f8f;
+$button-hover: #ff0000;
+$margin-default: 10px;
+
+// --- Body ---
+body {
+    background-color: $primary-color;
+    color: $text-color;
+    font-family: Arial, sans-serif;
+}
+
+// --- Header ---
+.header {
+    max-width: 100qw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// --- Container ---
+.container {
+    max-width: 100qw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+
+    > * {
+        margin: $margin-default;
+    }
+
+    .timer-display {
+        font-size: 48px;
+        font-weight: bold;
+    }
+
+    .controls {
+        display: flex;
+        gap: 15px;
+
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: $text-color;
+            background-color: $button-color;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: $button-hover;
+            }
+        }
+    }
+
+    .settings {
+        display: block;
+
+        &.hidden {
+            display: none;
+        }
+    }
+}
+
+// --- Notyfikacja ---
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .notification-content {
+        text-align: center;
+        animation: slideIn 0.5s ease-in-out;
+
+        h1 {
+            font-size: 72px;
+            margin: 0;
+            color: $text-color;
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

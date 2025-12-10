@@ -1,1 +1,8 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Ay43B2Go)
+# Pomodoro Timer
+
+**Autor:** Maciej Azarewicz  
+**Projekt:** Frontend Development 2025/2026
+
+## Opis projektu
+
+Projekt dotyczy opracowania zaawansowanego timera typu Pomodoro, który ułatwia zarządzanie czasem pracy poprzez personalizowane interwały, wizualne odliczanie, powiadomienia dźwiękowe oraz automatyczne przełączanie między trybami. Użytkownik może zarządzać timerem, śledzić postępy zadań, personalizować ustawienia i analizować swoją efektywność za pomocą szczegółowych statystyk.
