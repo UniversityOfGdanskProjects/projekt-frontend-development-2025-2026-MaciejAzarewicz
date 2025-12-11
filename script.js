@@ -94,27 +94,39 @@
     pauseBtn.addEventListener("click", pauseTimer);
     resetBtn.addEventListener("click", resetTimer);
 
-    // --- Eventy inputów ---
-    workInput.addEventListener("input", () => {
-      let val = parseInt(workInput.value);
-      if (val < 15) workInput.value = 15;
-      if (val > 60) workInput.value = 60;
-      workMinutes = parseInt(workInput.value);
-      if (isWorkTime && !isRunning) {
-        currentSeconds = workMinutes * 60;
-        updateDisplay(workMinutes, 0);
+    // --- Eventy inputów (skrócone) ---
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, Number(v) || a));
+
+    workInput.addEventListener('input', () => {
+      const v = workInput.value.trim();
+      if (!v) return;
+      const n = Number(v);
+      if (!Number.isNaN(n) && n >= 15 && n <= 60) {
+        workMinutes = n;
+        if (isWorkTime && !isRunning) { currentSeconds = n * 60; updateDisplay(n, 0); }
       }
     });
 
-    breakInput.addEventListener("input", () => {
-      let val = parseInt(breakInput.value);
-      if (val < 5) breakInput.value = 5;
-      if (val > 15) breakInput.value = 15;
-      breakMinutes = parseInt(breakInput.value);
-      if (!isWorkTime && !isRunning) {
-        currentSeconds = breakMinutes * 60;
-        updateDisplay(breakMinutes, 0);
+    workInput.addEventListener('blur', () => {
+      const n = clamp(workInput.value, 15, 60);
+      workInput.value = n; workMinutes = n;
+      if (isWorkTime && !isRunning) { currentSeconds = n * 60; updateDisplay(n, 0); }
+    });
+
+    breakInput.addEventListener('input', () => {
+      const v = breakInput.value.trim();
+      if (!v) return;
+      const n = Number(v);
+      if (!Number.isNaN(n) && n >= 5 && n <= 15) {
+        breakMinutes = n;
+        if (!isWorkTime && !isRunning) { currentSeconds = n * 60; updateDisplay(n, 0); }
       }
+    });
+
+    breakInput.addEventListener('blur', () => {
+      const n = clamp(breakInput.value, 5, 15);
+      breakInput.value = n; breakMinutes = n;
+      if (!isWorkTime && !isRunning) { currentSeconds = n * 60; updateDisplay(n, 0); }
     });
 
     // --- Inicjalizacja wyświetlacza ---
