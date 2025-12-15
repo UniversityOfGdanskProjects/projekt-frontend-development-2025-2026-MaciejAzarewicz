@@ -1,19 +1,30 @@
-import React from 'react';
 import { UserProvider } from './context/UserProvider';
+import { ChatProvider } from './context/ChatProvider';
+
 import Header from './components/Header';
 import Login from './components/Login';
+import Sidebar from './components/Sidebar';
+import ChatPlaceholder from './components/ChatPlaceholder';
+
 import './styles/main.scss';
 
 export default function App() {
   return (
     <UserProvider>
-      <div className="app">
-        <Header />
-        <main className="app-main">
-          <p>test</p>
-        </main>
-        <Login />
-      </div>
+      <ChatProvider>
+        <div className="app">
+          <Header />
+
+          <div className="layout">
+            <Sidebar />
+            <main className="chat-area">
+              <ChatPlaceholder />
+            </main>
+          </div>
+
+          <Login />
+        </div>
+      </ChatProvider>
     </UserProvider>
   );
 }

@@ -1,100 +1,126 @@
-:root {
-  --bg: #f3f4f6;
-  --card: #ffffff;
-  --accent: #4f46e5;
-  --text: #111827;
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #111;
 }
 
 .app {
-  max-width: 1100px;
-  margin: 18px auto;
-  padding: 12px;
+  padding: 20px;
+  min-height: 100vh;
 }
 
-/* header */
-.app-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
   padding: 12px 16px;
-  background: var(--card);
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.app-title {
+.header h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
 }
 
-.user-bubble {
-  background: rgba(79, 70, 229, 0.08);
-  padding: 6px 10px;
-  border-radius: 12px;
+.header span {
+  font-size: 14px;
+  color: #555;
+}
+
+.layout {
+  display: flex;
+  gap: 16px;
+}
+
+.sidebar {
+  width: 240px;
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.sidebar h3 {
+  margin: 0 0 10px;
   font-size: 14px;
 }
 
-/* main - placeholder */
-.app-main {
-  margin-top: 16px;
-  min-height: 300px;
-  padding: 20px;
-  background: var(--card);
-  border-radius: 10px;
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* login overlay */
-.login-overlay {
+.contact-item {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.contact-item:hover {
+  background: #eee;
+}
+
+.contact-item.active {
+  background: #4f46e5;
+  color: white;
+}
+
+.chat-area {
+  flex: 1;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.login {
   position: fixed;
   inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 50;
+  z-index: 100;
 }
 
-.login-card {
-  background: var(--card);
+.login h2 {
+  margin-top: 0;
+}
+
+.login form {
+  background: white;
   padding: 24px;
-  border-radius: 10px;
-  width: 320px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 280px;
 }
 
-.login-card h2 {
-  margin: 0 0 12px;
-}
-
-.login-card input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e5e7eb;
+.login input {
+  padding: 10px;
   border-radius: 8px;
-  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
 
-.login-card button {
-  background: var(--accent);
-  color: white;
+.login button {
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.login-card button:active {
-  transform: translateY(1px);
+.login button:hover {
+  opacity: 0.9;
 }/*# sourceMappingURL=main.css.map */

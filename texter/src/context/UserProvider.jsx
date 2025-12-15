@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { UserContext } from './UserContext';
+// src/context/UserProvider.jsx
+import React, { useState, useEffect } from 'react';
+import { UserContext } from './userContext';
 
 export function UserProvider({ children }) {
   const [userName, setUserName] = useState(() => {

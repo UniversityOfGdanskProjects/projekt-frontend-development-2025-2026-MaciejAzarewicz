@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
 
 export default function Header() {
   const { userName } = useContext(UserContext);
 
   return (
-    <header className="app-header">
-      <h1 className="app-title">Texter</h1>
-      <div className="user-bubble">{userName ? `Jesteś: ${userName}` : 'Brak imienia'}</div>
+    <header className="header">
+      <h1>Texter</h1>
+      {userName && <span>Zalogowany: {userName}</span>}
     </header>
   );
 }

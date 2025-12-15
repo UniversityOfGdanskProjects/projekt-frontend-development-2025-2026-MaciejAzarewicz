@@ -1,31 +1,31 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/userContext';
 
 export default function Login() {
   const { userName, setUserName } = useContext(UserContext);
-  const [name, setName] = useState(userName || '');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const trimmed = name.trim();
-    if (!trimmed) return;
-    setUserName(trimmed);
-  };
+  const [value, setValue] = useState('');
 
   if (userName) return null;
 
   return (
-    <div className="login-overlay">
-      <form className="login-card" onSubmit={handleSubmit}>
-        <h2>Wpisz swoje imię</h2>
+    <div className="login">
+      <h2>Podaj swoje imię</h2>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (value.trim()) {
+            setUserName(value.trim());
+          }
+        }}
+      >
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           placeholder="Twoje imię"
-          autoFocus
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit">Zaloguj</button>
+        <button>Zapisz</button>
       </form>
     </div>
   );
