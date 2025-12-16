@@ -1,31 +1,68 @@
-// src/context/ChatProvider.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChatContext } from './ChatContext';
 
+const BOT_REPLIES = [
+  'OK',
+];
+
 export function ChatProvider({ children }) {
-  const [contacts, setContacts] = useState([
+  const [contacts] = useState([
     { id: 1, name: 'Anna' },
     { id: 2, name: 'Bartek' },
     { id: 3, name: 'Kasia' },
   ]);
 
-  const [activeChatId, setActiveChatId] = useState(null);
+  const [activeContactId, setActiveContactId] = useState(null);
 
-  // Używamy setContacts poprzez funkcję addContact — to też przyda się później
-  const addContact = (name) => {
-    setContacts(prev => {
-      const nextId = prev.length ? Math.max(...prev.map(c => c.id)) + 1 : 1;
-      return [...prev, { id: nextId, name }];
-    });
-  };
+  const [messages, setMessages] = useState({
+    1: [],
+    2: [],
+    3: [],
+  });
+
+  function sendMessage(contactId, text) {
+    // wiadomość użytkownika
+    setMessages((prev) => ({
+      ...prev,
+      [contactId]: [
+        ...prev[contactId],
+        {
+          id: Date.now(),
+          author: 'me',
+          text,
+        },
+      ],
+    }));
+
+    // odpowiedź bota
+    setTimeout(() => {
+      const reply =
+        BOT_REPLIES[Math.floor(Math.random() * BOT_REPLIES.length)];
+
+      setMessages((prev) => ({
+        ...prev,
+        [contactId]: [
+          ...prev[contactId],
+          {
+            id: Date.now() + 1,
+            author: 'bot',
+            text: reply,
+          },
+        ],
+      }));
+    }, 2000 + Math.random() * 1000);
+  }
 
   return (
-    <ChatContext.Provider value={{
-      contacts,
-      activeChatId,
-      setActiveChatId,
-      addContact
-    }}>
+    <ChatContext.Provider
+      value={{
+        contacts,
+        activeContactId,
+        setActiveContactId,
+        messages,
+        sendMessage,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );

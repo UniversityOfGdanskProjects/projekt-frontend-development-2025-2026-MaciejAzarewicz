@@ -1,14 +1,23 @@
 import { useContext } from 'react';
 import { ChatContext } from '../context/ChatContext';
+import ChatMessages from './ChatMessages';
+import ChatInput from './ChatInput';
 
 export default function ChatPlaceholder() {
-  const { activeChatId, contacts } = useContext(ChatContext);
+  const { activeContactId } = useContext(ChatContext);
 
-  if (!activeChatId) {
-    return <p>Wybierz rozmowę z listy</p>;
+  if (!activeContactId) {
+    return (
+      <div className="chat-area">
+        <p>Wybierz rozmowę</p>
+      </div>
+    );
   }
 
-  const contact = contacts.find(c => c.id === activeChatId);
-
-  return <h2>Rozmowa z: {contact.name}</h2>;
+  return (
+    <div className="chat-area">
+      <ChatMessages />
+      <ChatInput />
+    </div>
+  );
 }

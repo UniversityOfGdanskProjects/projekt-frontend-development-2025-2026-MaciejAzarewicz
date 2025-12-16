@@ -6,13 +6,13 @@ export default function Sidebar() {
   const { contacts } = useContext(ChatContext);
 
   return (
-    <aside className="sidebar">
+    <div className="sidebar">
       <h3>Rozmowy</h3>
       <ul>
-        {contacts.map(contact => (
-          <ContactItem key={contact.id} contact={contact} />
+        {contacts.map((c) => (
+          <ContactItem key={c.id} contact={c} />
         ))}
       </ul>
-    </aside>
+    </div>
   );
 }
