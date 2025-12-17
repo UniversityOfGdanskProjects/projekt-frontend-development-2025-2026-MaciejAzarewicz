@@ -2,68 +2,98 @@ import { useState } from 'react';
 import { ChatContext } from './ChatContext';
 
 const BOT_REPLIES = [
-  'OK',
+'OK',
+'Rozumiem',
+'Ciekawe',
+'Dziękuję',
+'To ma sens',
+'Jasne',
 ];
 
 export function ChatProvider({ children }) {
-  const [contacts] = useState([
-    { id: 1, name: 'Anna' },
-    { id: 2, name: 'Bartek' },
-    { id: 3, name: 'Kasia' },
-  ]);
+const [contacts, setContacts] = useState([
+{ id: 1, name: 'Anna' },
+{ id: 2, name: 'Bartek' },
+{ id: 3, name: 'Kasia' },
+]);
 
-  const [activeContactId, setActiveContactId] = useState(null);
+const [activeContactId, setActiveContactId] = useState(null);
+const [showTime, setShowTime] = useState(false);
 
-  const [messages, setMessages] = useState({
-    1: [],
-    2: [],
-    3: [],
-  });
+const [messages, setMessages] = useState({
+1: [],
+2: [],
+3: [],
+});
 
-  function sendMessage(contactId, text) {
-    // wiadomość użytkownika
-    setMessages((prev) => ({
-      ...prev,
-      [contactId]: [
-        ...prev[contactId],
-        {
-          id: Date.now(),
-          author: 'me',
-          text,
-        },
-      ],
-    }));
+function addContact(name) {
+const newContact = {
+id: Date.now(),
+name: name.trim()
+};
 
-    // odpowiedź bota
-    setTimeout(() => {
-      const reply =
-        BOT_REPLIES[Math.floor(Math.random() * BOT_REPLIES.length)];
+setContacts(prev => [...prev, newContact]);
+setMessages(prev => ({
+...prev,
+[newContact.id]: []
+}));
+}
 
-      setMessages((prev) => ({
-        ...prev,
-        [contactId]: [
-          ...prev[contactId],
-          {
-            id: Date.now() + 1,
-            author: 'bot',
-            text: reply,
-          },
-        ],
-      }));
-    }, 2000 + Math.random() * 1000);
-  }
+function sendMessage(contactId, text) {
+if (!contactId || !text.trim()) return;
 
-  return (
-    <ChatContext.Provider
-      value={{
-        contacts,
-        activeContactId,
-        setActiveContactId,
-        messages,
-        sendMessage,
-      }}
-    >
-      {children}
-    </ChatContext.Provider>
-  );
+const userMessage = {
+id: Date.now(),
+author: 'me',
+text: text.trim(),
+timestamp: new Date().toISOString(),
+};
+
+// Dodaj wiadomość użytkownika
+setMessages(prev => ({
+...prev,
+[contactId]: [
+...(prev[contactId] || []),
+userMessage,
+],
+}));
+
+// Dodaj odpowiedź bota z opóźnieniem
+const reply =
+BOT_REPLIES[Math.floor(Math.random() * BOT_REPLIES.length)];
+
+setTimeout(() => {
+const botMessage = {
+id: Date.now() + 1,
+author: 'bot',
+text: reply,
+timestamp: new Date().toISOString(),
+};
+
+setMessages(prev => ({
+...prev,
+[contactId]: [
+...(prev[contactId] || []),
+botMessage,
+],
+}));
+}, 2000 + Math.random() * 1000);
+}
+
+return (
+<ChatContext.Provider
+value={{
+contacts,
+activeContactId,
+setActiveContactId,
+messages,
+sendMessage,
+showTime,
+setShowTime,
+addContact,
+}}
+>
+{children}
+</ChatContext.Provider>
+);
 }

@@ -16,6 +16,15 @@ export default function ChatMessages() {
     return <p>Wybierz rozmowę</p>;
   }
 
+  const formatTime = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString('pl-PL', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+  };
+
   return (
     <div ref={ref} style={{ maxHeight: '60vh', overflowY: 'auto' }}>
       {list.map((msg) => (
@@ -23,10 +32,15 @@ export default function ChatMessages() {
             key={msg.id}
             className={`message ${msg.author === 'me' ? 'me' : 'bot'}`}
         >
-            <div className="bubble">{msg.text}</div>
+            <div className="bubble">
+                <div className="message-text">{msg.text}</div>
+                {/* Godzina zawsze się pokazuje */}
+                <div className="message-time">
+                    {formatTime(msg.timestamp)}
+                </div>
+            </div>
         </div>
         ))}
-
     </div>
   );
 }
