@@ -1,43 +1,72 @@
-import { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, useCallback } from 'react';
 import { ChatContext } from '../context/ChatContext';
 
 const EMOJIS = ['😀', '😂', '❤️', '👍'];
 
-export default function ChatInput() {
-  const [text, setText] = useState('');
-  const inputRef = useRef(null);
-  const { activeContactId, sendMessage } = useContext(ChatContext);
+// Memoized ChatInput component for performance optimization
+const ChatInput = React.memo(() => {
+const [text, setText] = useState('');
+const inputRef = useRef(null);
+const { activeContactId, sendMessage } = useContext(ChatContext);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!text.trim()) return;
-    sendMessage(activeContactId, text);
-    setText('');
-    inputRef.current?.focus();
-  }
+const handleSubmit = useCallback((e) => {
+e.preventDefault();
+if (!text.trim() || !activeContactId) return;
 
-  function addEmoji(emoji) {
-    setText((prev) => prev + emoji);
-  }
+sendMessage(activeContactId, text);
+setText('');
 
-  return (
-    <form onSubmit={handleSubmit} className="chat-input">
-      <div className="emoji-bar">
-        {EMOJIS.map((e) => (
-          <span key={e} onClick={() => addEmoji(e)}>
-            {e}
-          </span>
-        ))}
-      </div>
+// Focus back to input after sending
+setTimeout(() => {
+inputRef.current?.focus();
+}, 100);
+}, [text, activeContactId, sendMessage]);
 
-      <input
-        ref={inputRef}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Napisz wiadomość..."
-      />
+const addEmoji = useCallback((emoji) => {
+setText((prev) => prev + emoji);
+}, []);
 
-      <button type="submit">➤</button>
-    </form>
-  );
-}
+const handleTextChange = useCallback((e) => {
+setText(e.target.value);
+}, []);
+
+return (
+<form onSubmit={handleSubmit} className="chat-input">
+<div className="emoji-bar">
+{EMOJIS.map((emoji) => (
+<span 
+key={emoji} 
+onClick={() => addEmoji(emoji)}
+role="button"
+tabIndex={0}
+onKeyPress={(e) => e.key === 'Enter' && addEmoji(emoji)}
+>
+{emoji}
+</span>
+))}
+</div>
+
+<input
+ref={inputRef}
+value={text}
+onChange={handleTextChange}
+placeholder="Napisz wiadomość..."
+disabled={!activeContactId}
+aria-label="Message input"
+/>
+
+<button 
+type="submit" 
+disabled={!text.trim() || !activeContactId}
+aria-label="Send message"
+>
+➤
+</button>
+</form>
+);
+});
+
+// Add display name for better debugging
+ChatInput.displayName = 'ChatInput';
+
+export default ChatInput;

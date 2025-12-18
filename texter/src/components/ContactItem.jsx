@@ -1,17 +1,27 @@
-import { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { ChatContext } from '../context/ChatContext';
 
-export default function ContactItem({ contact }) {
-  const { activeContactId, setActiveContactId } = useContext(ChatContext);
+// Memoized ContactItem for performance optimization
+const ContactItem = React.memo(({ contact }) => {
+const { activeContactId, setActiveContactId } = useContext(ChatContext);
 
-  return (
-    <li
-      className={`contact-item ${
-        activeContactId === contact.id ? 'active' : ''
-      }`}
-      onClick={() => setActiveContactId(contact.id)}
-    >
-      {contact.name}
-    </li>
-  );
-}
+const handleClick = useCallback(() => {
+setActiveContactId(contact.id);
+}, [contact.id, setActiveContactId]);
+
+return (
+<li
+className={`contact-item ${
+activeContactId === contact.id ? 'active' : ''
+}`}
+onClick={handleClick}
+>
+{contact.name}
+</li>
+);
+});
+
+// Add display name for better debugging
+ContactItem.displayName = 'ContactItem';
+
+export default ContactItem;

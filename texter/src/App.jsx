@@ -5,26 +5,30 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
 import ChatPlaceholder from './components/ChatPlaceholder';
+import SettingsPanel from './components/SettingsPanel';
 
 import './styles/main.scss';
 
 export default function App() {
-  return (
-    <UserProvider>
-      <ChatProvider>
-        <div className="app">
-          <Header />
+return (
+<UserProvider>
+<ChatProvider>
+<div className="app">
+<Header />
 
-          <div className="layout">
-            <Sidebar />
-            <main className="chat-area">
-              <ChatPlaceholder />
-            </main>
-          </div>
+<div className="layout">
+<Sidebar />
+<main className="chat-area">
+<ChatPlaceholder />
 
-          <Login />
-        </div>
-      </ChatProvider>
-    </UserProvider>
-  );
+{/* Panel ustawień */}
+<SettingsPanel />
+</main>
+</div>
+
+<Login />
+</div>
+</ChatProvider>
+</UserProvider>
+);
 }
