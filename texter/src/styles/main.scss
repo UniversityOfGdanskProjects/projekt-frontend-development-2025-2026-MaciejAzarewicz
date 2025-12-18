@@ -553,3 +553,72 @@ font-size: 13px;
 padding: 6px 12px;
 }
 }
+.edit-mode {
+  .edit-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 8px;
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 8px;
+    
+    .save-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      
+      &:hover {
+        background: #059669;
+      }
+    }
+    
+    .cancel-btn {
+      background: #6b7280;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      
+      &:hover {
+        background: #4b5563;
+      }
+    }
+  }
+}
+
+.edited-indicator {
+  font-size: 11px;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  opacity: 0.7;
+  margin-left: 8px;
+  
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+}
