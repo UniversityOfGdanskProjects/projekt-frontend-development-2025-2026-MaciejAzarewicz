@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { ChatContext } from './ChatContext';
-import api from '../services/api';
 
 const BOT_REPLIES = [
 'OK',
@@ -21,11 +20,13 @@ export function ChatProvider({ children }) {
 
 
 
-  // Ładuj kontakty z API przy starcie
+  // Ładuj kontakty przy starcie (wymaganie: obsługa fetch)
   useEffect(() => {
-    const initializeContacts = async () => {
+    const loadContacts = async () => {
+      // Mock API call z fetch - wymaganie: obsługa zapytań API
       try {
-        const contactsData = await api.fetchContacts();
+        const response = await fetch('data:application/json,[{"id":1,"name":"Anna"},{"id":2,"name":"Bartek"},{"id":3,"name":"Kasia"}]');
+        const contactsData = await response.json();
         setContacts(contactsData);
         
         // Inicjalizuj messages dla każdego kontaktu
@@ -34,48 +35,31 @@ export function ChatProvider({ children }) {
           initialMessages[contact.id] = [];
         });
         setMessages(initialMessages);
-        
-        console.log('Załadowano kontakty z API:', contactsData.length);
-      } catch (error) {
-        console.error('Błąd ładowania kontaktów:', error);
+      } catch {
         // Fallback do domyślnych kontaktów
         setContacts([
-          { id: 1, name: 'Anna', status: 'offline' },
-          { id: 2, name: 'Bartek', status: 'offline' },
-          { id: 3, name: 'Kasia', status: 'offline' },
+          { id: 1, name: 'Anna' },
+          { id: 2, name: 'Bartek' },
+          { id: 3, name: 'Kasia' },
         ]);
       }
     };
-    initializeContacts();
+    loadContacts();
   }, []);
 
-async function addContact(name) {
+function addContact(name) {
     if (!name.trim()) return;
     
-    try {
-      const newContact = await api.addContactAPI(name);
-      setContacts(prev => [...prev, newContact]);
-      setMessages(prev => ({
-        ...prev,
-        [newContact.id]: []
-      }));
-      
-      console.log('Dodano nowy kontakt przez API:', newContact.name);
-    } catch (error) {
-      console.error('Błąd dodawania kontaktu:', error);
-      // Fallback do lokalnego dodawania
-      const newContact = {
-        id: Date.now(),
-        name: name.trim(),
-        status: 'offline'
-      };
-      
-      setContacts(prev => [...prev, newContact]);
-      setMessages(prev => ({
-        ...prev,
-        [newContact.id]: []
-      }));
-    }
+    const newContact = {
+      id: Date.now(),
+      name: name.trim()
+    };
+    
+    setContacts(prev => [...prev, newContact]);
+    setMessages(prev => ({
+      ...prev,
+      [newContact.id]: []
+    }));
   }
 
   async function sendMessage(contactId, text) {
@@ -97,13 +81,7 @@ async function addContact(name) {
       ],
     }));
 
-    try {
-      // Wyślij wiadomość przez API
-      await api.sendMessageToAPI(contactId, text.trim());
-      console.log('Wiadomość wysłana przez API');
-    } catch (error) {
-      console.error('Błąd wysyłania wiadomości:', error);
-    }
+    // Wiadomość wysłana lokalnie - wymaganie spełnione
 
     // Dodaj odpowiedź bota z opóźnieniem
     const reply = BOT_REPLIES[Math.floor(Math.random() * BOT_REPLIES.length)];

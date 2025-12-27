@@ -91,7 +91,6 @@ export default function ChatMessages() {
                         onClick={() => handleEdit(msg)}
                         title="Edytuj wiadomość"
                       >
-                        ✏️
                       </button>
                     )}
                   </>
