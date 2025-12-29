@@ -3,7 +3,6 @@ import { ChatContext } from '../context/ChatContext';
 
 const EMOJIS = ['😀', '😂', '❤️', '👍'];
 
-// Memoized ChatInput component for performance optimization
 const ChatInput = React.memo(() => {
 const [text, setText] = useState('');
 const inputRef = useRef(null);
@@ -16,7 +15,6 @@ if (!text.trim() || !activeContactId) return;
 sendMessage(activeContactId, text);
 setText('');
 
-// Focus back to input after sending
 setTimeout(() => {
 inputRef.current?.focus();
 }, 100);
@@ -66,7 +64,6 @@ aria-label="Send message"
 );
 });
 
-// Add display name for better debugging
 ChatInput.displayName = 'ChatInput';
 
 export default ChatInput;

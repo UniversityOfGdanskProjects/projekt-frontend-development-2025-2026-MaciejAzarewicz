@@ -9,7 +9,6 @@ export default function ChatMessages() {
 
   const list = activeContactId ? messages[activeContactId] : [];
 
-  // useCallback hooks muszą być wywołane PRZED wczesnym returnem
   const formatTime = useCallback((timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
@@ -78,13 +77,11 @@ export default function ChatMessages() {
                     {msg.edited && (
                       <div className="edited-indicator">Edytowano</div>
                     )}
-                    {/* Godzina pokazuje się tylko jeśli showTime jest true */}
                     {showTime && (
                       <div className="message-time">
                         {formatTime(msg.timestamp)}
                       </div>
                     )}
-                    {/* Ikona edycji tylko dla wiadomości użytkownika */}
                     {msg.author === 'me' && (
                       <button 
                         className="edit-btn"

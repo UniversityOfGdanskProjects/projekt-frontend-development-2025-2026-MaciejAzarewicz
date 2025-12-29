@@ -1,7 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 import { ChatContext } from '../context/ChatContext';
 
-// Memoized ContactItem for performance optimization
 const ContactItem = React.memo(({ contact }) => {
 const { activeContactId, setActiveContactId } = useContext(ChatContext);
 

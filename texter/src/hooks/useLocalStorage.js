@@ -14,7 +14,7 @@ export function useLocalStorage(key, initialValue) {
     try {
       localStorage.setItem(key, JSON.stringify(state));
     } catch {
-      // Handle write errors if necessary
+      // Ignore write errors
     }
   }, [key, state]);
 

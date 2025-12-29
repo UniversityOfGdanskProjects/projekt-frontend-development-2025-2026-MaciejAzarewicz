@@ -7,11 +7,11 @@ export function UserProvider({ children }) {
   const [status, setStatus] = useLocalStorage('chat_status', 'Dostępny');
 
   return (
-    <UserContext.Provider value={{ 
-      userName, 
-      setUserName, 
-      status, 
-      setStatus 
+    <UserContext.Provider value={{
+      userName,
+      setUserName,
+      status,
+      setStatus
     }}>
       {children}
     </UserContext.Provider>
