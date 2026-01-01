@@ -1,26 +1,24 @@
-import React, { useContext, useCallback } from 'react';
-import { ChatContext } from '../context/ChatContext';
+import React, { useContext, useCallback } from "react";
+import { ChatContext } from "../context/ChatContext";
 
 const ContactItem = React.memo(({ contact }) => {
-const { activeContactId, setActiveContactId } = useContext(ChatContext);
+  const { activeContactId, setActiveContactId } = useContext(ChatContext);
 
-const handleClick = useCallback(() => {
-setActiveContactId(contact.id);
-}, [contact.id, setActiveContactId]);
+  const handleClick = useCallback(() => {
+    setActiveContactId(contact.id);
+  }, [contact.id, setActiveContactId]);
 
-return (
-<li
-className={`contact-item ${
-activeContactId === contact.id ? 'active' : ''
-}`}
-onClick={handleClick}
->
-{contact.name}
-</li>
-);
+  return (
+    <li
+      className={`contact-item ${
+        activeContactId === contact.id ? "active" : ""
+      }`}
+      onClick={handleClick}
+    >
+      {contact.name}
+    </li>
+  );
 });
-
-// Add display name for better debugging
-ContactItem.displayName = 'ContactItem';
+ContactItem.displayName = "ContactItem";
 
 export default ContactItem;

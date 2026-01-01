@@ -1,14 +1,14 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function Login() {
   const { userName, setUserName } = useContext(UserContext);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const navigate = useNavigate();
 
   if (userName) {
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
     return null;
   }
 
@@ -16,7 +16,7 @@ export default function Login() {
     e.preventDefault();
     if (value.trim()) {
       setUserName(value.trim());
-      navigate('/', { replace: true });
+      navigate("/", { replace: true });
     }
   };
 
@@ -24,7 +24,9 @@ export default function Login() {
     <div className="login">
       <div className="login-container">
         <h2>Witaj w Texter!</h2>
-        <p className="login-subtitle">Podaj swoje imię, aby rozpocząć rozmowę</p>
+        <p className="login-subtitle">
+          Podaj swoje imię, aby rozpocząć rozmowę
+        </p>
 
         <form onSubmit={handleSubmit} className="login-form">
           <input
@@ -43,7 +45,8 @@ export default function Login() {
         </form>
 
         <p className="login-hint">
-          Nie wymagamy rejestracji ani hasła. Twoje imię będzie zapamiętane tylko w tej przeglądarce.
+          Nie wymagamy rejestracji ani hasła. Twoje imię będzie zapamiętane
+          tylko w tej przeglądarce.
         </p>
       </div>
     </div>

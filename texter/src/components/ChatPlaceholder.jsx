@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import { ChatContext } from '../context/ChatContext';
-import ChatMessages from './ChatMessages';
-import ChatInput from './ChatInput';
+import { useContext } from "react";
+import { ChatContext } from "../context/ChatContext";
+import ChatMessages from "./ChatMessages";
+import ChatInput from "./ChatInput";
 
 export default function ChatPlaceholder() {
   const { activeContactId } = useContext(ChatContext);

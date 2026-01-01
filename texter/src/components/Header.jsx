@@ -1,21 +1,31 @@
-import { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useContext, useState, useEffect } from "react";
+import { UserContext } from "../context/UserContext";
 
 export default function Header() {
   const { userName, status, setStatus } = useContext(UserContext);
   const [showStatusSelector, setShowStatusSelector] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const statusOptions = ['Dostępny', 'Zaraz wracam', 'Nie przeszkadzać', 'Zajęty'];
+  const statusOptions = [
+    "Dostępny",
+    "Zaraz wracam",
+    "Nie przeszkadzać",
+    "Zajęty",
+  ];
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark);
 
     requestAnimationFrame(() => {
       setIsDarkMode(shouldBeDark);
-      document.documentElement.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
+      document.documentElement.setAttribute(
+        "data-theme",
+        shouldBeDark ? "dark" : "light",
+      );
     });
   }, []);
 
@@ -27,8 +37,11 @@ export default function Header() {
   function toggleTheme() {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
-    document.documentElement.setAttribute('data-theme', newMode ? 'dark' : 'light');
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    document.documentElement.setAttribute(
+      "data-theme",
+      newMode ? "dark" : "light",
+    );
+    localStorage.setItem("theme", newMode ? "dark" : "light");
   }
 
   return (
@@ -46,7 +59,9 @@ export default function Header() {
                 onClick={() => setShowStatusSelector(!showStatusSelector)}
                 title="Kliknij aby zmienić status"
               >
-                <span className={`status-dot ${status.toLowerCase().replace(' ', '-')}`}></span>
+                <span
+                  className={`status-dot ${status.toLowerCase().replace(" ", "-")}`}
+                ></span>
                 {status}
                 <span className="dropdown-arrow">▼</span>
               </button>
@@ -56,10 +71,12 @@ export default function Header() {
                   {statusOptions.map((option) => (
                     <button
                       key={option}
-                      className={`status-option ${status === option ? 'active' : ''}`}
+                      className={`status-option ${status === option ? "active" : ""}`}
                       onClick={() => handleStatusChange(option)}
                     >
-                      <span className={`status-dot ${option.toLowerCase().replace(' ', '-')}`}></span>
+                      <span
+                        className={`status-dot ${option.toLowerCase().replace(" ", "-")}`}
+                      ></span>
                       {option}
                     </button>
                   ))}
@@ -70,10 +87,14 @@ export default function Header() {
             <button
               className="theme-toggle"
               onClick={toggleTheme}
-              title={isDarkMode ? 'Przełącz na tryb jasny' : 'Przełącz na tryb ciemny'}
-              aria-label={isDarkMode ? 'Włącz tryb jasny' : 'Włącz tryb ciemny'}
+              title={
+                isDarkMode
+                  ? "Przełącz na tryb jasny"
+                  : "Przełącz na tryb ciemny"
+              }
+              aria-label={isDarkMode ? "Włącz tryb jasny" : "Włącz tryb ciemny"}
             >
-              {isDarkMode ? '☀️' : '🌙'}
+              {isDarkMode ? "☀️" : "🌙"}
             </button>
           </>
         )}

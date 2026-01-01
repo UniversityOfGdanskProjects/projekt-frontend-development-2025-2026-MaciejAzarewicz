@@ -1,17 +1,19 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { UserProvider } from './context/UserProvider';
-import { useUser } from './hooks/useUser';
-import { ChatProvider } from './context/ChatProvider';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { UserProvider } from "./context/UserProvider";
+import { useUser } from "./hooks/useUser";
+import { ChatProvider } from "./context/ChatProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import Header from './components/Header';
-import Login from './components/Login';
-import Sidebar from './components/Sidebar';
-import ChatPlaceholder from './components/ChatPlaceholder';
-import Settings from './components/Settings';
-import NotFound from './components/NotFound';
+import Header from "./components/Header";
+import Login from "./components/Login";
+import Sidebar from "./components/Sidebar";
+import ChatPlaceholder from "./components/ChatPlaceholder";
+import NotFound from "./components/NotFound";
+import Loading from "./components/Loading";
 
-import './styles/main.scss';
+import "./styles/main.scss";
+const Settings = lazy(() => import("./components/Settings"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +43,9 @@ function ChatApp() {
         <Sidebar />
         <main className="chat-area">
           <ChatPlaceholder />
-          <Settings />
+          <Suspense fallback={<Loading message="Ładowanie ustawień..." />}>
+            <Settings />
+          </Suspense>
         </main>
       </div>
     </div>

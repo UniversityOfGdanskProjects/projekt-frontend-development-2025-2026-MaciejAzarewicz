@@ -1,19 +1,22 @@
-import React, { useContext, useState, useCallback, memo } from 'react';
-import { ChatContext } from '../context/ChatContext';
-import ContactItem from './ContactItem';
+import React, { useContext, useState, useCallback, memo } from "react";
+import { ChatContext } from "../context/ChatContext";
+import ContactItem from "./ContactItem";
 
 const Sidebar = memo(() => {
   const { contacts, addContact, isLoading, error } = useContext(ChatContext);
-  const [newContactName, setNewContactName] = useState('');
+  const [newContactName, setNewContactName] = useState("");
 
-  const handleAddContact = useCallback((e) => {
-    e.preventDefault();
+  const handleAddContact = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    if (newContactName.trim() && addContact) {
-      addContact(newContactName.trim());
-      setNewContactName('');
-    }
-  }, [newContactName, addContact]);
+      if (newContactName.trim() && addContact) {
+        addContact(newContactName.trim());
+        setNewContactName("");
+      }
+    },
+    [newContactName, addContact],
+  );
 
   const handleNameChange = useCallback((e) => {
     setNewContactName(e.target.value);
@@ -24,10 +27,7 @@ const Sidebar = memo(() => {
       return <li className="no-contacts">Brak kontaktów. Dodaj nowy!</li>;
     }
     return contacts.map((contact) => (
-      <ContactItem
-        key={contact.id}
-        contact={contact}
-      />
+      <ContactItem key={contact.id} contact={contact} />
     ));
   }, [contacts]);
 
@@ -43,9 +43,7 @@ const Sidebar = memo(() => {
       )}
 
       {error && (
-        <div className="sidebar-error">
-          Nie udało się pobrać kontaktów
-        </div>
+        <div className="sidebar-error">Nie udało się pobrać kontaktów</div>
       )}
 
       <form onSubmit={handleAddContact} className="add-contact">
@@ -66,13 +64,11 @@ const Sidebar = memo(() => {
         </button>
       </form>
 
-      <ul className="contact-list">
-        {contactList}
-      </ul>
+      <ul className="contact-list">{contactList}</ul>
     </div>
   );
 });
 
-Sidebar.displayName = 'Sidebar';
+Sidebar.displayName = "Sidebar";
 
 export default Sidebar;
