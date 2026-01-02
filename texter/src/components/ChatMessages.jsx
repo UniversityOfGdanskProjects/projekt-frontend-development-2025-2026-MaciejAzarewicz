@@ -95,7 +95,9 @@ const ChatMessages = memo(() => {
                     className="edit-btn"
                     onClick={() => handleEdit(msg)}
                     title="Edytuj wiadomość"
-                  ></button>
+                  >
+                    ✏️
+                  </button>
                 )}
               </>
             )}

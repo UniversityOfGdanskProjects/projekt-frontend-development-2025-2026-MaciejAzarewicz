@@ -43,11 +43,6 @@ export default function Login() {
             Rozpocznij
           </button>
         </form>
-
-        <p className="login-hint">
-          Nie wymagamy rejestracji ani hasła. Twoje imię będzie zapamiętane
-          tylko w tej przeglądarce.
-        </p>
       </div>
     </div>
   );
