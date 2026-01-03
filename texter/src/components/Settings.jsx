@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { ChatContext } from "../context/ChatContext";
 
 export default function Settings() {
-  const { showTime, setShowTime, activeContactId } = useContext(ChatContext);
+  const { showTime, setShowTime, activeContactId, clearAllMessages } =
+    useContext(ChatContext);
 
   if (!activeContactId) {
     return null;
@@ -19,6 +20,10 @@ export default function Settings() {
         />
         <span className="setting-text">Pokaż godzinę wysłania wiadomości</span>
       </label>
+
+      <button className="clear-messages-btn" onClick={clearAllMessages}>
+        Wyczyść wszystkie wiadomości
+      </button>
     </div>
   );
 }
