@@ -8,14 +8,14 @@ export default function ChatPlaceholder() {
 
   if (!activeContactId) {
     return (
-      <div className="chat-area">
+      <div className="chat-messages-container">
         <p>Wybierz rozmowę</p>
       </div>
     );
   }
 
   return (
-    <div className="chat-area">
+    <div className="chat-messages-container">
       <ChatMessages />
       <ChatInput />
     </div>

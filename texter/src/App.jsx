@@ -41,7 +41,7 @@ function ChatApp() {
 
       <div className="layout">
         <Sidebar />
-        <main className="chat-area">
+        <main className="chat-messages-container">
           <ChatPlaceholder />
           <Suspense fallback={<Loading message="Ładowanie ustawień..." />}>
             <Settings />

@@ -310,7 +310,7 @@ body {
   }
 }
 
-.chat-area {
+.chat-messages-container {
   flex: 1;
   background: var(--bg-secondary);
   border-radius: 10px;
@@ -843,7 +843,7 @@ body {
     overflow-y: auto;
   }
 
-  .chat-area {
+  .chat-messages-container {
     order: 1;
   }
 
