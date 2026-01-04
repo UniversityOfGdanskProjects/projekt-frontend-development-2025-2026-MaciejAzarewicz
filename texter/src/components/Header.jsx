@@ -10,7 +10,7 @@ export default function Header() {
     "Dostępny",
     "Zaraz wracam",
     "Nie przeszkadzać",
-    "Zajęty",
+    "Nieaktywny",
   ];
 
   useEffect(() => {
